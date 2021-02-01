@@ -5,7 +5,9 @@ import BeerInterface from "../BeerInterface";
 import {Link} from "react-router-dom";
 import {tableSort, getComparator, Order} from "./SortHelper";
 import BeerChart from "./BeerChart";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import './styles.scss'
 const BeerList = () => {
     const dispatch = useDispatch()
     const beers = useSelector((state: RootStateOrAny) => state.beer.beers)
@@ -27,17 +29,33 @@ const BeerList = () => {
         setOrderBy(attribute)
         // tableSort(beers,getComparator(order, attribute))
     }
+    const SortIcon = () => {
+        return (
+            <div className={'sortIcon'}>
+                { order === 'desc' ? <FontAwesomeIcon icon={faArrowUp} /> : <FontAwesomeIcon icon={faArrowDown} />}
+            </div>
+        )
+    }
     return (
         <div className="BeerList">
             <BeerChart beers={beers} />
             <table className="BeerList table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <td onClick={() => sort('id')}>Id</td>
-                        <td onClick={() => sort('name')}>Name</td>
+                        <td className={'pointer'} onClick={() => sort('id')}>
+                            Id
+                            <SortIcon />
+                        </td>
+                        <td className={'pointer'} onClick={() => sort('name')}>
+                            Name
+                            <SortIcon />
+                        </td>
                         <td>Tagline</td>
                         <td>Photo</td>
-                        <td onClick={() => sort('abv')}>ABV</td>
+                        <td className={'pointer'} onClick={() => sort('abv')}>
+                            ABV
+                            <SortIcon />
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
