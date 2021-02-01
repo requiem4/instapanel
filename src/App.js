@@ -1,6 +1,11 @@
 import React from "react";
 import "./styles.css";
-
+import BeerList from "./Pages/Beer/Components/BeerList";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import BeerForm from "./Pages/Beer/Components/BeerForm";
+import {Provider} from "react-redux";
+import store from './Configs/Store';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // API endpoint: https://api.punkapi.com/v2/beers
 // Documentation: https://punkapi.com/documentation/v2
 // Constraints:
@@ -39,6 +44,14 @@ const App = () => {
       <h2>
         Take a look at <code>App.js</code> to get started.
       </h2>
+      <div className="container">
+        <Provider store={store}>
+          <Router>
+            <Route path="/beer/:id" exact component={BeerForm} />
+            <Route path="/" exact component={BeerList} />
+          </Router>
+        </Provider>
+      </div>
     </div>
   );
 };
